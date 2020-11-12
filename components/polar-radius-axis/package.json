@@ -1,0 +1,31 @@
+{
+  "name": "@bit/recharts.recharts.polar-radius-axis",
+  "version": "1.6.2",
+  "homepage": "https://bit.dev/recharts/recharts/polar-radius-axis",
+  "main": "dist/polar/PolarRadiusAxis.js",
+  "componentId": {
+    "scope": "recharts.recharts",
+    "name": "polar-radius-axis",
+    "version": "1.6.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.5",
+    "prop-types": "^15.6.0",
+    "@bit/recharts.recharts.label": "1.6.2",
+    "@bit/recharts.recharts.text": "1.6.2",
+    "@bit/recharts.recharts.layer": "1.6.2",
+    "@bit/recharts.recharts.polar-utils": "1.6.2",
+    "@bit/recharts.recharts.pure-render": "1.6.2",
+    "@bit/recharts.recharts.react-utils": "1.6.2"
+  },
+  "devDependencies": {},
+  "peerDependencies": {
+    "react": "^15.0.0 || ^16.0.0"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "bit": {
+    "env": {
+      "compiler": "recharts.envs/compilers/react@1.0.5"
+    }
+  }
+}

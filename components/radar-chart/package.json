@@ -1,0 +1,27 @@
+{
+  "name": "@bit/recharts.recharts.radar-chart",
+  "version": "1.6.2",
+  "homepage": "https://bit.dev/recharts/recharts/radar-chart",
+  "main": "dist/chart/RadarChart.js",
+  "componentId": {
+    "scope": "recharts.recharts",
+    "name": "radar-chart",
+    "version": "1.6.2"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0",
+    "@bit/recharts.recharts.generate-categorical-chart": "1.6.2",
+    "@bit/recharts.recharts.polar-angle-axis": "1.6.2",
+    "@bit/recharts.recharts.polar-radius-axis": "1.6.2",
+    "@bit/recharts.recharts.radar": "1.6.2",
+    "@bit/recharts.recharts.polar-utils": "1.6.2"
+  },
+  "devDependencies": {},
+  "peerDependencies": {},
+  "license": "SEE LICENSE IN LICENSE",
+  "bit": {
+    "env": {
+      "compiler": "recharts.envs/compilers/react@1.0.5"
+    }
+  }
+}
