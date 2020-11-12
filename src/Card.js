@@ -14,9 +14,12 @@ function Card( {pokemon, index, callback} ) {
   const [genusText, setGenus] = useState("");
   const [cardOpen, setCardOpen] = useState("");
   const cardRef = useRef(null);
+  const containerRef = useRef(null);
+  const [loadedInfo, setLoadedInfo] = useState(false);
 
-  const openCloseCard = (e) => {
 
+  const openCard = (e) => {
+    if (cardOpen!=="") return;
     if (genusText===""){
       fetch(pokemon.species.url).then(response => {
         return response.json();        
@@ -26,44 +29,45 @@ function Card( {pokemon, index, callback} ) {
         console.log(data);
         const flavor_texts = data.flavor_text_entries;
         flavor_texts.forEach(element => {
-          if (element.language.name=="en")
+          if (element.language.name==="en")
             setFlavor(element.flavor_text);
+            setLoadedInfo(true)
         });
 
         const genus_text = data.genera;
         genus_text.forEach(element => {
-          if (element.language.name=="en")
+          if (element.language.name==="en")
             setGenus(element.genus);
         });
       });
     }
 
     let offset = getElementOffset(e.currentTarget);
-    let delay = 400;
-    if (cardOpen==="")
-      delay = 10;
     setTimeout(() => {
-      if (cardOpen==="card-open")
-        setCardOpen("");
-      else if (cardOpen==="")
-        setCardOpen("card-open");
-      
-  }, delay);
+      setCardOpen("card-open");
+    }, 10);
     
-    if (cardOpen==="")
-    {
-      callback("overlay-modal");
-      setPos('fixed');
-      setX(offset.left-20);
-      setY(offset.top-20);
-    } else {
-      setX(offset.left-20);
-      setY(offset.top-20);
-      callback("overlay");
-      setTimeout(() => {
-        setPos('static');
+    callback("overlay-modal");
+    setPos('fixed');
+    setX(offset.left-20);
+    setY(offset.top-20);
+    setCardOpen("card-animating");
+  }
+
+  const closeCard = (e) => {
+    let offset = getElementOffset(containerRef.current);
+
+    setTimeout(() => {
+        setCardOpen("");      
+    }, 400);
+
+    setX(offset.left-20);
+    setY(offset.top-20);
+    callback("overlay");
+    setTimeout(() => {
+      setPos('static');
     }, 500);
-    }
+
     setCardOpen("card-animating");
   }
 
@@ -113,7 +117,7 @@ const captions = {
   };
 
   return (
-        <div className={"pokemon-card-container " + cardOpen} onClick={openCloseCard} key={pokemon.id}>
+        <div className={"pokemon-card-container " + cardOpen} ref={containerRef} onClick={openCard} key={pokemon.id}>
         <div className="pokemon-card" ref={cardRef} style={{ position: pos, top: Y, left:X}}>
           <div className={
             "pokemon-card-inner "+ (pokemon.types!=null?pokemon.types[0].type.name+"_1":"") +
@@ -124,19 +128,25 @@ const captions = {
           <img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites!=null ? pokemon.sprites.other.dream_world.front_default : "nothing.jpg"} />
           </div>
           <div className="pokemon-card-back">
-          <button>Add to fav</button>
-            <h3 className="pokemon-name">{ "#" + (pokemon.id!=null?pokemon.id:index+1) + " " + pokemon.name }</h3>
+            <div className="title-row">
+              <button className="fav-button">+</button>
+              <h3 className="pokemon-name">{ "#" + (pokemon.id!=null?pokemon.id:index+1) + " " + pokemon.name }</h3>
+              <button className="close-button" onClick={closeCard}>X</button>
+            </div>
+          
             <table className="pokemon-general-info">
-              <tr><td className="label genus" colSpan="2">{genusText}</td></tr>
+              <tbody>
+              <tr><td className={"label genus " + (loadedInfo?"loaded":"")} colSpan="2">{genusText}</td></tr>
               <tr><td className="label">Type</td><td className="value">{Type(pokemon.types)}              
               </td></tr>
               <tr>
-          <td className="label">Height</td><td className="value">{pokemon.height/10+"m"}</td>
+                <td className="label">Height</td><td className="value">{pokemon.height/10+"m"}</td>
               </tr>
               <tr>
-          <td className="label">Weight</td><td className="value">{pokemon.weight/10+"kg"}</td>
+                <td className="label">Weight</td><td className="value">{pokemon.weight/10+"kg"}</td>
               </tr>
-              <tr><td className="value flavor" colSpan="2">{flavorText}</td></tr>
+              <tr><td className={"value flavor " + (loadedInfo?"loaded":"")} colSpan="2">{flavorText}</td></tr>
+              </tbody>
             </table>
             <div className="radar-container"><RadarChart
                   captions={captions}
