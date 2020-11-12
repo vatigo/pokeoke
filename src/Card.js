@@ -93,9 +93,9 @@ function Card( {pokemon, index, callback} ) {
   const data = [
     {
       data: {
-        hp: pokemon.stats[0].base_stat/155,
+        hp: pokemon.stats[0].base_stat/250,
         a: pokemon.stats[1].base_stat/155,
-        d: pokemon.stats[2].base_stat/155,
+        d: pokemon.stats[2].base_stat/185,
         sa: pokemon.stats[3].base_stat/155,
         sd: pokemon.stats[4].base_stat/155
       },
