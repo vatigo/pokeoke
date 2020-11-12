@@ -119,15 +119,16 @@ const captions = {
   return (
         <div className={"pokemon-card-container " + cardOpen} ref={containerRef} onClick={openCard} key={pokemon.id}>
         <div className="pokemon-card" ref={cardRef} style={{ position: pos, top: Y, left:X}}>
-          <div className={
-            "pokemon-card-inner "+ (pokemon.types!=null?pokemon.types[0].type.name+"_1":"") +
+          <div className="pokemon-card-inner">
+          <div className={"pokemon-card-front " + (pokemon.types!=null?pokemon.types[0].type.name+"_1":"") +
              " " + ((pokemon.types!=null && pokemon.types.length>=2)?pokemon.types[1].type.name+"_2 bg-gradient":(pokemon.types!=null?pokemon.types[0].type.name+"_2 bg-gradient_2":""))
             }>
-          <div className="pokemon-card-front">
           <h3 className="pokemon-name">{ "#" + (pokemon.id!=null?pokemon.id:index+1) + " " + pokemon.name }</h3>
           <img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites!=null ? pokemon.sprites.other.dream_world.front_default : "nothing.jpg"} />
           </div>
-          <div className="pokemon-card-back">
+          <div className={"pokemon-card-back " + (pokemon.types!=null?pokemon.types[0].type.name+"_1":"") +
+             " " + ((pokemon.types!=null && pokemon.types.length>=2)?pokemon.types[1].type.name+"_2 bg-gradient":(pokemon.types!=null?pokemon.types[0].type.name+"_2 bg-gradient_2":""))
+            }>
             <div className="title-row">
               <button className="fav-button">+</button>
               <h3 className="pokemon-name">{ "#" + (pokemon.id!=null?pokemon.id:index+1) + " " + pokemon.name }</h3>
