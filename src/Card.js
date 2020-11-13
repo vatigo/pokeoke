@@ -73,7 +73,6 @@ function Card( {pokemon, index, callback} ) {
 
   useEffect(()=>{
     let offset = getElementOffset(cardRef.current);
-    console.log(cardRef.current);
     setX(offset.left);
     setY(offset.top);
   }, [cardRef])
@@ -142,15 +141,15 @@ const captions = {
           <div className={"pokemon-card-front " + (pokemon.types!=null?pokemon.types[0].type.name+"_1":"") +
              " " + ((pokemon.types!=null && pokemon.types.length>=2)?pokemon.types[1].type.name+"_2 bg-gradient":(pokemon.types!=null?pokemon.types[0].type.name+"_2 bg-gradient_2":""))
             }>
-          <h3 className="pokemon-name">{ "#" + (pokemon.id!=null?pokemon.id:index+1) + " " + pokemon.name }</h3>
+          <h3 className={(favorites.some(e => e.id === pokemon.id))?"pokemon-name favorite":"pokemon-name"}>{ "#" + (pokemon.id!=null?pokemon.id:index+1) + " " + pokemon.name }</h3>
           <img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites!=null ? pokemon.sprites.other.dream_world.front_default : "nothing.jpg"} />
           </div>
           <div className={"pokemon-card-back " + (pokemon.types!=null?pokemon.types[0].type.name+"_1":"") +
              " " + ((pokemon.types!=null && pokemon.types.length>=2)?pokemon.types[1].type.name+"_2 bg-gradient":(pokemon.types!=null?pokemon.types[0].type.name+"_2 bg-gradient_2":""))
             }>
             <div className="title-row">
-              <button className="fav-button" onClick={toggleFavorite}>+</button>
-              <h3 className="pokemon-name">{ "#" + (pokemon.id!=null?pokemon.id:index+1) + " " + pokemon.name }</h3>
+              <button className={(favorites.some(e => e.id === pokemon.id))?"fav-button remove":"fav-button"} onClick={toggleFavorite}>{(favorites.some(e => e.id === pokemon.id))?"-":"+"}</button>
+              <h3 className={(favorites.some(e => e.id === pokemon.id))?"pokemon-name favorite":"pokemon-name"}>{ "#" + (pokemon.id!=null?pokemon.id:index+1) + " " + pokemon.name }</h3>
               <button className="close-button" onClick={closeCard}>X</button>
             </div>
           

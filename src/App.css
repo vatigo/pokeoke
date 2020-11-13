@@ -1,3 +1,88 @@
+/* FAVORITES WINDOW */
+.favorites-list-container {
+  width: 220px;
+  box-sizing: border-box;
+  border-radius: 0 10px 10px 0;
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+  position: fixed;
+  z-index: 5;
+  transform: translateZ(110px);
+  box-shadow: 0 0 5px black;
+  padding: 2px;
+  padding: 2px;
+  left: -230px;
+  transition: 0.5s ease;
+  overflow-y: auto;
+  bottom: 0;
+  top: 0;
+}
+
+.favorites-list-container.open {
+  left: 0;
+}
+
+.favorites-open-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  background: #4CAF50;
+  color: white;
+  border: 0;
+  box-shadow: 0 0 5px black;
+  z-index: 5;
+  border-radius: 50%;
+  transform: translateZ(109px);
+}
+
+.favorite-icon {
+  max-height: 50px;
+  margin: 0 5px;
+}
+
+.remove-button {
+  border-radius: 50%;
+  background: #fe3030;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.favorites-title {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.close-favorites-button {
+  border-radius: 50%;
+  border: 0;
+  background: #b0b0b0;
+  width: 30px;
+  height: 30px;
+  color: white;
+  font-weight: bold;
+}
+
+.favorite-pokemon-item {
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  text-transform: capitalize;
+  background: #fafafa;
+  border-radius: 10px;
+}
+
+/* POKEMON CARD */
 .pokemon-name {
   text-transform: capitalize;
   text-align: center;
@@ -6,8 +91,12 @@
   border-radius: 5px;
   font-size: 18px;
   margin: 6px;
-  background: rgba(255,255,255,0.5);
+  background: #e8e8e8;
   box-shadow: 0 0 5px white;
+}
+
+.pokemon-name.favorite {
+  background: linear-gradient(45deg, #BF953F, #FCF6BA, #FBF5B7, #BF953F);
 }
 
 .pokemon-card {
@@ -40,7 +129,7 @@
 
 .title-row button {
   border: 1px solid white;
-  border-radius: 5px;
+  border-radius: 0 5px 5px 0;
   background: rgba(255,255,255,0.5);
   box-shadow: 0 0 5px white;
   box-sizing: border-box;
@@ -52,18 +141,24 @@ button:hover{
   box-shadow: inset 0 0 15px white;
 }
 
+.fav-button.remove {
+  background: #fe3030;
+}
+
 .title-row .close-button {
   font-weight: bold;
-  background: rgba(255,0,0,0.5);
+  background: #b0b0b0;
   color: white;
   font-size: 14px;
 }
 
-.fav-button {
+button.fav-button {
   font-weight: bold;
+  border-radius: 5px 0 0 5px;
   color: white;
   font-size: 19px;
   padding-bottom: 2px;
+  background-color: #4CAF50;
 }
 
 .radar-container svg {
@@ -78,6 +173,9 @@ button:hover{
 
 .pokemon-card-back .pokemon-name {
   margin: 0;
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
 }
 
 .caption {
@@ -109,7 +207,6 @@ button:hover{
 }
 
 .pokemon-card-container {
-  /*perspective: 800px;*/
   width: 250px;
   height: 305px;
 }
@@ -153,7 +250,6 @@ button:hover{
 }
 
 .pokemon-card-back {
-    /*background: rgba(255,255,255,0.5);*/
     transform: rotateY(180deg) translateZ(2px);
     padding: 10px;
 }
@@ -255,13 +351,15 @@ td.loaded {
   transition: all 1s ease !important; 
 }
 
-/* animation */
+/* Shine */
 
 @keyframes slide {
   0% {transform: translateY(-100%);}
   50% {transform: translateY(100%);}
 	100% {transform: translateY(100%);}
 }
+
+/* Main view */
 
 .poke-grid {
   display: grid;
@@ -278,8 +376,9 @@ td.loaded {
 }
 
 .search-box input {
-  width: 50%;
+  width: 100%;
   height: 30px;
+  max-width: 300px;
 }
 
 .App {

@@ -9,7 +9,6 @@ function App() {
 
   const [pokemonList, setPokemonList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
-  const [favorites, setFavorites] = useState([]);
   const [overlayClass, setOverlay] = useState("overlay");
 
   const filterPokemon = e => {
@@ -17,14 +16,6 @@ function App() {
       let value = e.target.value.toLowerCase().replace(/\s+/g, '');
       return (pokemon.name.includes(value) || pokemon.types[0].type.name.includes(value)  || (pokemon.types.length>1?pokemon.types[1].type.name.includes(value):false ));
     }));
-  }
-
-  const addFavorite = () => {
-
-  }
-
-  const removeFavorite = () => {
-
   }
 
   useEffect(()=>{
@@ -53,17 +44,7 @@ function App() {
 
   const mycallback = (e) => {
     setOverlay(e);
-    return;
-    if (e=="overlay-modal"){ 
-      let oldWidth = document.body.offsetWidth;
-      document.body.classList.add('modal-open');
-      document.body.style.width = oldWidth + "px";
-    } else {
-      setTimeout(() => {
-        document.body.classList.remove('modal-open');
-        document.body.style.width = "auto";      
-    }, 400);
-    }    
+    return; 
   }
 
   useEffect(() => {
@@ -81,7 +62,7 @@ function App() {
       <FavList></FavList>
       <div className={overlayClass}></div>
       <div className="search-box">
-        <input className="searchBar" placeholder="Start typing to search by name or type" type="text" onChange={filterPokemon}></input>
+        <input className="searchBar" type="search" placeholder="Start typing to search by name or type" onChange={filterPokemon}></input>
       </div>
       <div className="poke-grid">
         {filteredList.map((pokemon,index) => (
