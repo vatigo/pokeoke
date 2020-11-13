@@ -10,10 +10,11 @@ function App() {
   const [pokemonList, setPokemonList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [overlayClass, setOverlay] = useState("overlay");
+  const [searchText, setSearchText] = useState("");
 
-  const filterPokemon = e => {
+  const filterPokemon = () => {
     setFilteredList(pokemonList.filter(pokemon => {
-      let value = e.target.value.toLowerCase().replace(/\s+/g, '');
+      let value = searchText.toLowerCase().replace(/\s+/g, '');
       return (pokemon.name.includes(value) || pokemon.types[0].type.name.includes(value)  || (pokemon.types.length>1?pokemon.types[1].type.name.includes(value):false ));
     }));
   }
@@ -47,22 +48,35 @@ function App() {
     return; 
   }
 
+  useEffect(filterPokemon,[searchText, pokemonList]);
+
   useEffect(() => {
     function handleResize() {
-      console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
+      //console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
       document.body.style.width = "auto";
 }
 
     window.addEventListener('resize', handleResize)
   })
 
+  const Search = e => {
+    setSearchText(e.target.value);
+  }
+
+  const clearSearch = () => {
+    setSearchText("");
+  }
+
   return (
     <div className="App">
       <FavProvider>
       <FavList></FavList>
       <div className={overlayClass}></div>
+      <div className="search-container">
       <div className="search-box">
-        <input className="searchBar" type="search" placeholder="Start typing to search by name or type" onChange={filterPokemon}></input>
+        <input className="searchBar" type="text" value={searchText} placeholder="Start typing to search by name or type" onChange={Search}></input>
+        {searchText!==""?(<i className="clear" onClick={clearSearch}>&times;</i>):""}
+      </div>
       </div>
       <div className="poke-grid">
         {filteredList.map((pokemon,index) => (

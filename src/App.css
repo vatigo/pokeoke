@@ -23,6 +23,10 @@
   left: 0;
 }
 
+.no-favorites {
+  padding: 0 10px;
+}
+
 .favorites-open-button {
   position: fixed;
   top: 20px;
@@ -183,7 +187,7 @@ button.fav-button {
   font-weight: bold;
   font-size: 20px;
   text-transform: uppercase;
-  text-shadow: 0 0 5px white;
+  text-shadow: 0 0 5px white, 0 0 5px white, 0 0 5px white;
 }
 
 .overlay {
@@ -334,7 +338,7 @@ td.loaded {
 
 .card-open .pokemon-card{
   position: fixed;
-  transform: rotateY(180deg) translate3d(125px, -250px, -100px);
+  transform: rotateY(180deg) translate3d(150px, -250px, -100px);
   transition-duration: 1s !important;
   transition-property: all !important;
   transform-origin: center bottom;
@@ -369,16 +373,30 @@ td.loaded {
   justify-content: center;
 }
 
-.search-box {
-  padding-top: 50px;
+.search-container {
   display: flex;
   justify-content: center;
+  margin: 0 80px;
+}
+
+.search-box {
+  padding-top: 50px;
+  position: relative;
 }
 
 .search-box input {
-  width: 100%;
-  height: 30px;
+  height: 20px;
   max-width: 300px;
+  padding: 5px;
+  min-width: 225px;
+}
+
+.clear {
+  right: 2px;
+  position: absolute;
+  display: inline-block;
+  padding: 4px 6px 6px 4px;
+  cursor: pointer;
 }
 
 .App {

@@ -45,7 +45,7 @@ function Card( {pokemon, index, callback} ) {
     let offset = getElementOffset(e.currentTarget);
     setTimeout(() => {
       setCardOpen("card-open");
-    }, 10);
+    }, 100);
     
     callback("overlay-modal");
     setPos('fixed');
