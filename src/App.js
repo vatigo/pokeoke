@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import Card from './Card'
 import './App.css';
+import {FavProvider} from './FavContext';
+import FavList from './FavList';
 
 
 function App() {
@@ -75,6 +77,8 @@ function App() {
 
   return (
     <div className="App">
+      <FavProvider>
+      <FavList></FavList>
       <div className={overlayClass}></div>
       <div className="search-box">
         <input className="searchBar" placeholder="Start typing to search by name or type" type="text" onChange={filterPokemon}></input>
@@ -85,6 +89,7 @@ function App() {
         ))
         }
       </div>
+      </FavProvider>
     </div>
   );
 }

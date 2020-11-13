@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import RadarChart from 'react-svg-radar-chart';
 import 'react-svg-radar-chart/build/css/index.css'
 import './App.css';
+import {FavContext} from './FavContext';
 
 
 function Card( {pokemon, index, callback} ) {
 
+  const [favorites, setFavorites] = useContext(FavContext);
 
   const [pos, setPos] = useState('static');
   const [Y, setY] = useState(0);
@@ -24,9 +26,7 @@ function Card( {pokemon, index, callback} ) {
       fetch(pokemon.species.url).then(response => {
         return response.json();        
       }).then(speciesInfo => {
-        console.log(speciesInfo);
         const data = speciesInfo;
-        console.log(data);
         const flavor_texts = data.flavor_text_entries;
         flavor_texts.forEach(element => {
           if (element.language.name==="en")
@@ -116,6 +116,25 @@ const captions = {
     sd: "Sp. Def"
   };
 
+  const toggleFavorite = () => {
+    //remove pokemon
+    if (favorites.some(e => e.id === pokemon.id)) {
+      setFavorites(() => {
+        const newItems = favorites.filter(item => item.id !== pokemon.id);
+        console.log(newItems);
+        window.localStorage.setItem("fav-pokemon", JSON.stringify(newItems));
+        return newItems;        
+      });
+    } else {
+      //add pokemon
+      setFavorites((prevFavs) => {
+        const newItems = [...prevFavs, pokemon];
+        window.localStorage.setItem("fav-pokemon", JSON.stringify(newItems));
+        return newItems;
+      });
+    }
+  }
+
   return (
         <div className={"pokemon-card-container " + cardOpen} ref={containerRef} onClick={openCard} key={pokemon.id}>
         <div className="pokemon-card" ref={cardRef} style={{ position: pos, top: Y, left:X}}>
@@ -130,7 +149,7 @@ const captions = {
              " " + ((pokemon.types!=null && pokemon.types.length>=2)?pokemon.types[1].type.name+"_2 bg-gradient":(pokemon.types!=null?pokemon.types[0].type.name+"_2 bg-gradient_2":""))
             }>
             <div className="title-row">
-              <button className="fav-button">+</button>
+              <button className="fav-button" onClick={toggleFavorite}>+</button>
               <h3 className="pokemon-name">{ "#" + (pokemon.id!=null?pokemon.id:index+1) + " " + pokemon.name }</h3>
               <button className="close-button" onClick={closeCard}>X</button>
             </div>
