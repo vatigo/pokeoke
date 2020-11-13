@@ -183,11 +183,11 @@ button.fav-button {
 }
 
 .caption {
-  fill: black;
-  font-weight: bold;
+  fill: #fff;
+  font-weight: 700;
   font-size: 20px;
   text-transform: uppercase;
-  text-shadow: 0 0 5px white, 0 0 5px white, 0 0 5px white;
+  text-shadow: 0 0 5px #000,0 0 5px #000,0 0 5px #000;
 }
 
 .overlay {
